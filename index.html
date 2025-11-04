@@ -69,7 +69,7 @@
       filter: brightness(60%);
     }
     .slideshow-container {
-  width: 40%;
+  width: 80%;
   height: 70vh;                 /* full responsive height */
   overflow: hidden;
   border-radius: 20px;
@@ -153,6 +153,21 @@ the kind of light that never fades away. 🌷
     <audio id="bgSong" autoplay loop>
       <source src="song.mp3" type="audio/mpeg">
     </audio>
+
+    <!-- Simple overlay -->
+<div id="musicStartScreen" style="
+  position: fixed; 
+  top:0; left:0; right:0; bottom:0; 
+  background: rgba(0,0,0,0.85); 
+  color:white; 
+  font-size:1.5rem; 
+  display:flex; 
+  justify-content:center; 
+  align-items:center; 
+  flex-direction:column; 
+  z-index:9999;">
+  <p>🎵 Tap anywhere to start the music and continue 💖</p>
+</div>
   </section>
 
   <!-- Confetti -->
@@ -193,28 +208,22 @@ the kind of light that never fades away. 🌷
       setTimeout(showSlides, 2000);
     }
 
-    const bgSong = document.getElementById("bgSong");
+   const bgSong = document.getElementById("bgSong");
+  const musicScreen = document.getElementById("musicStartScreen");
 
-  window.addEventListener("load", () => {
-    alert("🎵 Tap OK to start the music and enjoy the surprise! 💖");
-
-    // create invisible button
-    const hiddenBtn = document.createElement("button");
-    hiddenBtn.style.display = "none";
-    document.body.appendChild(hiddenBtn);
-
-    // attach click event to play song
-    hiddenBtn.addEventListener("click", () => {
-      bgSong.volume = 0.5;
-      bgSong.play().then(() => {
-        console.log("✅ Song started!");
-      }).catch(err => console.log("❌ Song blocked:", err));
+  function startMusic() {
+    bgSong.volume = 0.5;
+    bgSong.play().then(() => {
+      console.log("✅ Music started!");
+      musicScreen.style.display = "none"; // hide overlay
+    }).catch(err => {
+      console.log("❌ Still blocked:", err);
+      alert("Please tap again to start the music!");
     });
+  }
 
-    // simulate user click (works after alert)
-    hiddenBtn.click();
-    hiddenBtn.remove();
-  });
+  // One tap = start + hide overlay
+  musicScreen.addEventListener("click", startMusic);
   </script>
 
 </body>
