@@ -175,6 +175,23 @@ the kind of light that never fades away. 🌷
   <script>
     let slideIndex = 0;
 
+    const bgSong = document.getElementById("bgSong");
+  const musicScreen = document.getElementById("musicStartScreen");
+
+  function startMusic() {
+    bgSong.volume = 0.5;
+    bgSong.play().then(() => {
+      console.log("✅ Music started!");
+      musicScreen.style.display = "none"; // hide overlay
+    }).catch(err => {
+      console.log("❌ Still blocked:", err);
+      alert("Please tap again to start the music!");
+    });
+  }
+
+  // One tap = start + hide overlay
+  musicScreen.addEventListener("click", startMusic);
+
     // Page navigation
     function nextPage(pageNum) {
       document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
@@ -208,22 +225,7 @@ the kind of light that never fades away. 🌷
       setTimeout(showSlides, 2000);
     }
 
-   const bgSong = document.getElementById("bgSong");
-  const musicScreen = document.getElementById("musicStartScreen");
-
-  function startMusic() {
-    bgSong.volume = 0.5;
-    bgSong.play().then(() => {
-      console.log("✅ Music started!");
-      musicScreen.style.display = "none"; // hide overlay
-    }).catch(err => {
-      console.log("❌ Still blocked:", err);
-      alert("Please tap again to start the music!");
-    });
-  }
-
-  // One tap = start + hide overlay
-  musicScreen.addEventListener("click", startMusic);
+   
   </script>
 
 </body>
