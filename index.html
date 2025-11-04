@@ -97,6 +97,25 @@
 
   <!-- Page 1: Intro -->
   <section id="page1" class="active">
+ <audio id="bgSong" autoplay loop>
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Simple overlay -->
+<div id="musicStartScreen" style="
+  position: fixed; 
+  top:0; left:0; right:0; bottom:0; 
+  background: rgba(0,0,0,0.85); 
+  color:white; 
+  font-size:1.5rem; 
+  display:flex; 
+  justify-content:center; 
+  align-items:center; 
+  flex-direction:column; 
+  z-index:9999;">
+  <p>🎵 Tap anywhere to start the music and continue 💖</p>
+</div>
+    
     <h1>Happy Birthday, Khushi!! 💖</h1>
     <p>
 
@@ -150,24 +169,7 @@ the kind of light that never fades away. 🌷
 
     <!-- 🎵 BACKGROUND SONG -->
     <!-- 🔽 Place your song file "song.mp3" in same folder as this HTML -->
-    <audio id="bgSong" autoplay loop>
-      <source src="song.mp3" type="audio/mpeg">
-    </audio>
-
-    <!-- Simple overlay -->
-<div id="musicStartScreen" style="
-  position: fixed; 
-  top:0; left:0; right:0; bottom:0; 
-  background: rgba(0,0,0,0.85); 
-  color:white; 
-  font-size:1.5rem; 
-  display:flex; 
-  justify-content:center; 
-  align-items:center; 
-  flex-direction:column; 
-  z-index:9999;">
-  <p>🎵 Tap anywhere to start the music and continue 💖</p>
-</div>
+   
   </section>
 
   <!-- Confetti -->
