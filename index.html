@@ -196,11 +196,24 @@ the kind of light that never fades away. 🌷
     const bgSong = document.getElementById("bgSong");
 
   window.addEventListener("load", () => {
-    alert("🎵 Tap OK to start the surprise! 💖");  // user interaction trigger
-    bgSong.volume = 0.5;
-    bgSong.play().catch((err) => {
-      console.log("Autoplay blocked:", err);
+    alert("🎵 Tap OK to start the music and enjoy the surprise! 💖");
+
+    // create invisible button
+    const hiddenBtn = document.createElement("button");
+    hiddenBtn.style.display = "none";
+    document.body.appendChild(hiddenBtn);
+
+    // attach click event to play song
+    hiddenBtn.addEventListener("click", () => {
+      bgSong.volume = 0.5;
+      bgSong.play().then(() => {
+        console.log("✅ Song started!");
+      }).catch(err => console.log("❌ Song blocked:", err));
     });
+
+    // simulate user click (works after alert)
+    hiddenBtn.click();
+    hiddenBtn.remove();
   });
   </script>
 
