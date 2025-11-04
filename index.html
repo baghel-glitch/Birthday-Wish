@@ -196,20 +196,12 @@ the kind of light that never fades away. 🌷
     const bgSong = document.getElementById("bgSong");
 
   window.addEventListener("load", () => {
-    // Force-play after short delay
+    alert("🎵 Tap OK to start the surprise! 💖");  // user interaction trigger
     bgSong.volume = 0.5;
-    const playPromise = bgSong.play();
-
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        // Fallback if browser blocks autoplay
-        document.body.addEventListener("click", () => {
-          bgSong.play();
-        }, { once: true });
-      });
-    }
+    bgSong.play().catch((err) => {
+      console.log("Autoplay blocked:", err);
+    });
   });
-
   </script>
 
 </body>
