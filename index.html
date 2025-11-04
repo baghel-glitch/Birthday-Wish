@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Khushi 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html {
+      height: 100%;
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, #1c0b2f, #312b37);
+      overflow: hidden;
+    }
+    section {
+      display: none;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      position: absolute;
+      top: 0; left: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    section.active {
+      display: flex;
+      opacity: 1;
+      z-index: 10;
+    }
+    h1 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: #fff;
+      text-shadow: 0 0 15px #701141;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #fff;
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      max-width: 600px;
+    }
+    button {
+      background: linear-gradient(90deg, #690637, #c88cff);
+      border: none;
+      color: white;
+      padding: 12px 28px;
+      border-radius: 25px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(255, 112, 184, 0.7);
+    }
+    video {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+      filter: brightness(60%);
+    }
+    .slideshow-container {
+      width: 80%;
+      height: 70%;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 0 40px rgba(255, 112, 184, 0.7);
+      position: relative;
+    }
+    .slides {
+      display: none;
+      width: 100%;
+      height: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Page 1: Intro -->
+  <section id="page1" class="active">
+    <h1>Happy Birthday, Khushi 💖</h1>
+    <p>Today is all about you, my Teekli — the smile that brightens my world 🌸</p>
+    <button onclick="nextPage(2)">🎁 Open Your Gift</button>
+  </section>
+
+  <!-- Page 2: Gift Video -->
+  <section id="page2">
+    <video autoplay loop muted playsinline>
+      <!-- 🔽 Place your video file "birthday.mp4" in same folder -->
+      <source src="birthday.mp4" type="video/mp4">
+    </video>
+    <h1>For You, Yadav Jii 💫</h1>
+    <p>Tum meri life ka sabse pyara hissa ho,  
+      mere din ki sabse khubsurat muskaan ❤️</p>
+    <button onclick="nextPage(3)">🎉 Next Surprise</button>
+  </section>
+
+  <!-- Page 3: Slideshow -->
+  <section id="page3">
+    <h1>Some Memories with You 💕</h1>
+    <div class="slideshow-container">
+      <!-- 🔽 Replace with your photo names -->
+      <img class="slides" src="img1.jpg" alt="Khushi 1">
+      <img class="slides" src="img2.jpg" alt="Khushi 2">
+      <img class="slides" src="img3.jpg" alt="Khushi 3">
+      <img class="slides" src="img4.jpg" alt="Khushi 4">
+    </div>
+    <button onclick="nextPage(1)">🏠 Back to Start</button>
+
+    <!-- 🎵 BACKGROUND SONG -->
+    <!-- 🔽 Place your song file "song.mp3" in same folder as this HTML -->
+    <audio id="bgSong" autoplay loop>
+      <source src="song.mp3" type="audio/mpeg">
+    </audio>
+  </section>
+
+  <!-- Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script>
+    let slideIndex = 0;
+
+    // Page navigation
+    function nextPage(pageNum) {
+      document.querySelectorAll("section").forEach(s => s.classList.remove("active"));
+      document.getElementById("page" + pageNum).classList.add("active");
+
+      if (pageNum === 2) fireConfetti();
+      if (pageNum === 3) showSlides();
+    }
+
+    // Confetti effect
+    function fireConfetti() {
+      let duration = 3 * 1000;
+      let animationEnd = Date.now() + duration;
+      let defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+      let interval = setInterval(() => {
+        let timeLeft = animationEnd - Date.now();
+        if (timeLeft <= 0) return clearInterval(interval);
+        let particleCount = 50 * (timeLeft / duration);
+        confetti(Object.assign({}, defaults, { particleCount, origin: { x: Math.random(), y: Math.random() - 0.2 } }));
+      }, 250);
+    }
+
+    // Slideshow
+    function showSlides() {
+      let slides = document.getElementsByClassName("slides");
+      for (let i = 0; i < slides.length; i++) slides[i].style.display = "none";
+      slideIndex++;
+      if (slideIndex > slides.length) slideIndex = 1;
+      slides[slideIndex - 1].style.display = "block";
+      setTimeout(showSlides, 2500);
+    }
+
+    const bgSong = document.getElementById("bgSong");
+
+  window.addEventListener("load", () => {
+    // Force-play after short delay
+    bgSong.volume = 0.5;
+    const playPromise = bgSong.play();
+
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        // Fallback if browser blocks autoplay
+        document.body.addEventListener("click", () => {
+          bgSong.play();
+        }, { once: true });
+      });
+    }
+  });
+
+  </script>
+
+</body>
+</html>
